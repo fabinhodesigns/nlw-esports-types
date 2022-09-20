@@ -13,4 +13,4 @@ A feat with Rocketseat, focused on sports projects applying various up-to-date t
 - freitasfabiano08@gmail.com
 - @fabinhofreitastw
 
-##In progress
+## In progress
