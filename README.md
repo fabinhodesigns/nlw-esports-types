@@ -7,6 +7,7 @@ A feat with Rocketseat, focused on sports projects applying various up-to-date t
 - Node.js
 - React
 - React Native
+- Tailwind CSS
 - Git and Github
 
 ## 📞 Contact
