@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Game {
-  id        String @id
+  id        String @id @default(uuid())
   title     String
   bannerUrl String
 
@@ -19,7 +19,7 @@ model Game {
 }
 
 model Ad {
-  id              String   @id
+  id              String   @id @default(uuid())
   gameId          String
   name            String
   yearsPlaying    Int
