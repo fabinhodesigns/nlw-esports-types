@@ -9,6 +9,7 @@ A feat with Rocketseat, focused on sports projects applying various up-to-date t
 - React Native
 - Tailwind CSS
 - Vite.js
+- Prisma
 - Git and Github
 
 ## 📞 Contact
