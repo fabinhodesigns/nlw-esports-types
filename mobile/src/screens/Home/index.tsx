@@ -12,13 +12,14 @@ import { Heading } from '../../components/Heading';
 import { styles } from './styles';
 
 export function Home() {
+
+  const [games, setGames] = useState<GameCardProps[]>([]);
+  
   useEffect(() => {
     fetch('http://150.162.206.129:3333/games')
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => setGames(data));
   }, []);
-
-  const [games, setGames] = useState<GameCardProps[]>([]);
 
   const navigation = useNavigation();
 
