@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Entypo } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { GameParams } from '../../@types/navigation';
-import { View, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, TouchableOpacity, Image, FlatList, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { styles } from './styles';
@@ -25,8 +25,8 @@ export function Game() {
     navigation.goBack();
   }
 
-  useEffect(() => { 
-    fetch(`http://150.162.206.129:3333/games/${game.id}/ads`)
+  useEffect(() => {
+    fetch(`http://192.168.0.115:3333/games/${game.id}/ads`)
       .then(response => response.json())
       .then(data => setDuos(data));
   });
@@ -67,8 +67,20 @@ export function Game() {
         <FlatList
           data={duos}
           keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <DuoCard data={item} />
+          renderItem={({ item }) => (
+            <DuoCard
+              onConnect={() => { }}
+              data={item}
+            />
+          )}
+          horizontal
+          style={styles.containerList}
+          contentContainerStyle={[duos.length === 0 ? styles.emptyListContent : styles.contentList]}
+          showsHorizontalScrollIndicator={false}
+          ListEmptyComponent={() => (
+            <Text style={styles.emptyListText}>
+              Não há anúncios públicados ainda.
+            </Text>
           )}
         >
         </FlatList>

@@ -6,7 +6,7 @@ import logoImg from './assets/logo-nlw-esports.svg';
 import { GameBanner } from './components/GameBanner';
 import { CreateAdBanner } from './components/CreateAdBanner';
 import { GameController } from 'phosphor-react';
-import { Input } from './components/Form/input';
+import { Input } from './components/Form/Input';
 
 interface Game {
   id: string;

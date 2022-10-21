@@ -10,11 +10,18 @@ export const styles = StyleSheet.create({
     marginRight: 16
   },
   button: {
-    width: 140,
+    width: '100%',
     height: 36,
     borderRadius: 6,
     backgroundColor: THEME.COLORS.PRIMARY,
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
+  },
+  buttonTitle : {
+    color: THEME.COLORS.TEXT,
+    fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
+    fontSize: THEME.FONT_SIZE.SM,
+    marginLeft: 8
   }
 });
