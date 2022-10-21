@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Entypo } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { GameParams } from '../../@types/navigation';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { styles } from './styles';
@@ -10,9 +11,11 @@ import logoImg from '../../assets/logo-nlw-esports.png';
 
 import { Background } from '../../components/Background';
 import { Heading } from '../../components/Heading';
-import { DuoCard } from '../../components/DuoCard';
+import { DuoCard, DuoCardProps } from '../../components/DuoCard';
 
 export function Game() {
+
+  const [duos, setDuos] = useState<DuoCardProps[]>([]);
 
   const route = useRoute();
   const navigation = useNavigation();
@@ -21,6 +24,12 @@ export function Game() {
   function handleGoBack() {
     navigation.goBack();
   }
+
+  useEffect(() => { 
+    fetch(`http://150.162.206.129:3333/games/${game.id}/ads`)
+      .then(response => response.json())
+      .then(data => setDuos(data));
+  });
 
   return (
     <Background>
@@ -36,29 +45,33 @@ export function Game() {
             </Entypo>
           </TouchableOpacity>
 
-          <Image 
+          <Image
             source={logoImg}
             style={styles.logo}
           />
 
-          <View style={styles.right } />  
+          <View style={styles.right} />
         </View>
 
-        <Image 
+        <Image
           source={{ uri: game.bannerUrl }}
           style={styles.cover}
           resizeMode="cover"
         />
 
-        <Heading 
+        <Heading
           title={game.title}
           subTitle="Conecte-se e comece a jogar!"
         />
 
-        <DuoCard 
-          
-        />
-
+        <FlatList
+          data={duos}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <DuoCard data={item} />
+          )}
+        >
+        </FlatList>
       </SafeAreaView>
     </Background>
   );
