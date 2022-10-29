@@ -7,6 +7,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 interface Game {
     id: string;
@@ -30,12 +31,44 @@ export function CreateAdModal() {
 
         const formData = new FormData(event.target as HTMLFormElement);
         const data = Object.fromEntries(formData);
- 
-        if(!data.name) {
-            return;
-        }
 
         try{
+            if(!data.name) {
+                swal({
+                    title: "Seu nome...",
+                    text: "Precisamos de seu nome para concluir o anúncio!",
+                    icon: "warning",
+                });
+            }
+            if(!data.yearPlaying) {
+                swal({
+                    title: "Seu anos...",
+                    text: "Precisamos saber dos anos totais que você já jogou. Não tem problema ser zero!",
+                    icon: "warning",
+                });
+            }
+            if(!data.discord) {
+                swal({
+                    title: "Seu Discord",
+                    text: "Precisamos saber seu Discord para você conseguiur jogar com outros usuários!",
+                    icon: "warning",
+                });
+            }
+            if(!data.hourStart) {
+                swal({
+                    title: "Horário de Início...",
+                    text: "Precisamos saber qual é o horário que você inicialmente joga...",
+                    icon: "warning",
+                });
+            }
+            if(!data.hourEnd) {
+                swal({
+                    title: "Horário de Fim...",
+                    text: "Precisamos saber qual é o horário que você geralmente para de jogar...",
+                    icon: "warning",
+                });
+            }
+
             await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
                 name: data.name,
                 yearsPlaying: Number(data.yearsPlaying),
@@ -46,9 +79,18 @@ export function CreateAdModal() {
                 useVoiceChannel: useVoiceChannel
             });
 
-            alert("Anúncio criado com sucesso!");
+            swal({
+                title: "Bora jogar!",
+                text: "Parabéns, seu anúncio foi criado!",
+                icon: "success",
+              });
         } catch (err) {
-            alert("Erro ao criar o anúncio.");
+            swal({
+                title: "Que pena...",
+                text: `Ocorreu algum problema ao criar seu anúncio ${data.name}, por favor contate nosso suporte.`,
+                icon: "warning",
+                });
+            
             console.log(err);
         }
     }
