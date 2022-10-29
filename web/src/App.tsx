@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import axios from 'axios';
 
 import './styles/main.css';
 import logoImg from './assets/logo-nlw-esports.svg';
@@ -21,13 +22,10 @@ function App() {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3333/games/')
-      .then(response => response.json())
-      .then(data => {
-        setGames(data);
-      }
-      );
-  });
+    axios('http://localhost:3333/games/').then(response => {
+        setGames(response.data);
+      });
+  }, []);
 
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
